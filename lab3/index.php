@@ -33,7 +33,8 @@ $words คำที่1 คือ <?php echo substr($words, 0, $space1);?>
 $words คำที่2 คือ <?php
 echo substr($words,$space1+1,$space2-($space1+1));?> 
 $words คำที่3 คือ <?php echo substr($words, $space2+1);?>
-ตัวอักษรที่สุ่มได้จาก $words คือ "<?php echo $words[rand(0, strlen($words)-1)]?>"
+ตัวอักษรที่สุ่มได้จาก $words คือ "<?php
+ echo $words[rand(0, strlen($words)-1)]?>"
 </pre>
 </body>
 </html>
