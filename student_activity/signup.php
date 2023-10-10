@@ -1,5 +1,14 @@
 <?php
 require 'connect.php';
+if (isset($_POST['submit'])) {
+  $studentID =$_POST['studentID'];
+  $studentName =$_POST['studentName'];
+  $majorID =$_POST['majorID'];
+  $password =password_hash($_POST['password'],PASSWORD_DEFAULT);
+  $sql ="insert into student(studentID,studentName,Major_ID,password)
+   values('{$studentID}','{$studentName}','{$majorID}','{$password }')";
+  $conn->query($sql);
+}
 ?>
 <html lang="en">
   <head>
@@ -34,25 +43,35 @@ require 'connect.php';
         border-top-right-radius: 0;
       }
     </style>
+    <script>
+        function validate() {
+            let p1 =document.querySelector('#password').value;
+            let p2 =document.querySelector('#re-password').value;
+            if (p1 !=p2) {
+              alert('passwords are not identical.');
+              event.preventDefault();
+            }
+        }
+    </script>
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signup w-100 m-auto">
-      <form>
-        <img class="mb-4" src="image/pyhxalnc-transformed.png" alt="" width="250" height="250">
-        <h1 class="h3 mb-3 fw-normal">Please sign up🌼🌻🌼</h1>
+      <form action="signup.php" method="post" onsubmit="validate()">
+        <img class="mb-4" src="image/_ArtistLogo.png" alt="" width="300" height="300">
+        <h1 class="h3 mb-3 fw-normal">Please sign up🌷</h1>
     
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="Student ID" placeholder="Student ID">
-          <label for="floatingEmail">Student ID🌼</label>
+        <div class="form-floating mb-4">
+          <input required name="studentID" type="text" class="form-control" id="Student ID" placeholder="Student ID">
+          <label for="floatingEmail">Student ID🌷</label>
         </div>
 
-        <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="Student Name" placeholder="Email address">
-          <label for="Student Name">Student Name🌼</label>
+        <div class="form-floating mb-4">
+          <input required  name="studentName" type="text" class="form-control" id="Student Name" placeholder="Email address">
+          <label for="Student Name">Student Name🌷</label>
         </div>
 
-        <div class="form-floating mb-3">
-          <select class="form-select" id="major">
+        <div class="form-floating mb-4">
+          <select name="majorID" class="form-select" id="major">
 <?php
 $sql= 'select * from major order by faculty';
 $result = $conn->query($sql);
@@ -64,20 +83,20 @@ while ($row = $result->fetch_assoc()){
           $conn->close();
           ?>
         </select>
-          <label for="Major_ID">Major_ID🌼</label>
+          <label for="Major_ID">Major_ID🌷</label>
         </div>
 
         <div class="form-floating">
-          <input type="password" class="form-control" id="Retype_Password" placeholder="Password">
-          <label for="Retype_Password">Retype_Password🌼</label>
+          <input required name ="password" type="password" class="form-control" id="password" placeholder="Password">
+          <label for="password">Password🌷</label>
         </div>
 
         <div class="form-floating">
-          <input type="password" class="form-control" id="Password" placeholder="Password">
-          <label for="Password">Password🌼</label>
+          <input required type="password" class="form-control" id="re-password" placeholder="Password">
+          <label for="Retype_Password">Retype_Password🌷</label>
         </div>
 
-        <button class="btn btn-primary w-100 py-2" type="submit">sign up</button>
+        <button name= "submit" class="btn btn-primary w-100 py-2" type="submit">sign up</button>
         <!-- <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p> -->
       </form>
     </main>
